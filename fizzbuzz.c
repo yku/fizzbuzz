@@ -87,16 +87,16 @@ static ssize_t fizzbuzz_read(struct file *filp, char *buf, size_t count, loff_t 
 
     for(i = 1; i <= value; i++) {
         int send;
-        char val[11];
+        char val[10];
         
         if(i % 3 == 0 && i % 5 == 0) {
-            send = sprintf(val, "%s ", "fizzbuzz");
+            send = snprintf(val, sizeof(val), "%s ", "fizzbuzz");
         }else if(i % 3 == 0) {
-            send = sprintf(val, "%s ", "fizz");
+            send = snprintf(val, sizeof(val), "%s ", "fizz");
         }else if(i % 5 == 0) {
-            send = sprintf(val, "%s ", "buzz");
+            send = snprintf(val, sizeof(val), "%s ", "buzz");
         }else{
-            send = sprintf(val, "%d ", i);
+            send = snprintf(val, sizeof(val), "%d ", i);
         }
 
         if(copy_to_user(&buf[count], val, send)) {
